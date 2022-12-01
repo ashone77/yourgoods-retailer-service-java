@@ -1,6 +1,7 @@
 package com.yourgoods.retailerservicejava.controller;
 
 import com.yourgoods.retailerservicejava.VO.RetailerLogin;
+import com.yourgoods.retailerservicejava.models.ProductRequest;
 import com.yourgoods.retailerservicejava.models.Retailer;
 import com.yourgoods.retailerservicejava.service.RetailerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +49,11 @@ public class RetailerController {
     @PostMapping("/validateRetailer")
     public Retailer validateRetailer(@RequestBody Retailer retailer){
         return retailerService.validateRetailer(retailer);
+    }
+
+    @PostMapping("/newProductRequest")
+    public ProductRequest newProductRequest(@RequestBody ProductRequest productRequest){
+        return retailerService.newProductRequest(productRequest);
     }
 
 

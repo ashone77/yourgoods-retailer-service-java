@@ -1,7 +1,8 @@
 package com.yourgoods.retailerservicejava.service;
 
-import com.yourgoods.retailerservicejava.VO.RetailerLogin;
+import com.yourgoods.retailerservicejava.models.ProductRequest;
 import com.yourgoods.retailerservicejava.models.Retailer;
+import com.yourgoods.retailerservicejava.repository.ProductRequestRepository;
 import com.yourgoods.retailerservicejava.repository.RetailerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,10 +15,12 @@ import java.util.Optional;
 @Service
 public class RetailerService {
     private final RetailerRepository retailerRepository;
+    private final ProductRequestRepository productRequestRepository;
 
     @Autowired
-    public RetailerService(RetailerRepository retailerRepository) {
+    public RetailerService(RetailerRepository retailerRepository, ProductRequestRepository productRequestRepository) {
         this.retailerRepository = retailerRepository;
+        this.productRequestRepository = productRequestRepository;
     }
 
     public Retailer registerRetailer(Retailer retailer) {
@@ -79,4 +82,7 @@ public class RetailerService {
     }
 
 
+    public ProductRequest newProductRequest(ProductRequest productRequest) {
+        return productRequestRepository.save(productRequest);
+    }
 }
