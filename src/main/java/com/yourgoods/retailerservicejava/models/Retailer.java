@@ -4,6 +4,7 @@ package com.yourgoods.retailerservicejava.models;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -27,4 +28,8 @@ public class Retailer {
     private String retailerAddress;
     @NotBlank
     private String retailerPincode;
+    public void setRetailerPassword(String retailerPassword) {
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        this.retailerPassword = encoder.encode(retailerPassword);
+    }
 }

@@ -1,5 +1,6 @@
 package com.yourgoods.retailerservicejava.controller;
 
+import com.yourgoods.retailerservicejava.VO.RetailerLogin;
 import com.yourgoods.retailerservicejava.models.Retailer;
 import com.yourgoods.retailerservicejava.service.RetailerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,11 @@ public class RetailerController {
     @PutMapping("/{id}")
     public ResponseEntity<Retailer> updateRetailerDetails(@PathVariable("id") String retailerId, @RequestBody Retailer retailer){
         return retailerService.updateRetailerDetails(retailerId, retailer);
+    }
+
+    @PostMapping("/validateRetailer")
+    public Retailer validateRetailer(@RequestBody Retailer retailer){
+        return retailerService.validateRetailer(retailer);
     }
 
 

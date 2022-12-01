@@ -1,5 +1,6 @@
 package com.yourgoods.retailerservicejava.service;
 
+import com.yourgoods.retailerservicejava.VO.RetailerLogin;
 import com.yourgoods.retailerservicejava.models.Retailer;
 import com.yourgoods.retailerservicejava.repository.RetailerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,7 +52,31 @@ public class RetailerService {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
+    //RETAILER REGISTRAION
+    public Retailer saveRetailer(Retailer retailer) {
+        List<Retailer> retailers = getAllRetailers();
+        for(Retailer re : retailers){
+            if(re.getRetailerEmail().equals(retailer.getRetailerEmail())){
+                System.out.println("Email Already Exists! ");
+                return null;
+            }
+        }
 
+        return retailerRepository.save(retailer);
+    }
+    // LOG IN
+    public Retailer validateRetailer(Retailer retailer) {
+        List<Retailer> retailers = getAllRetailers();
+        for(Retailer re : retailers){
+            if(re.getRetailerEmail().equals(retailer.getRetailerEmail()) && re.getRetailerPassword().equals(retailer.getRetailerPassword())){
+                System.out.println("Login Successfully");
+                //System.out.println(re);
+                return re;
+            }
+        }
+        System.out.println("Please Register! No Email Found!! ");
+        return null;
+    }
 
 
 }
