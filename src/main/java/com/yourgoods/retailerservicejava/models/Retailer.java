@@ -3,6 +3,7 @@ package com.yourgoods.retailerservicejava.models;
 
 import lombok.Data;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -15,6 +16,7 @@ public class Retailer {
 
     @Id
     private String id;
+    @Indexed(unique = true)
     private String retailerId;
     @NotBlank
     private String retailerName;

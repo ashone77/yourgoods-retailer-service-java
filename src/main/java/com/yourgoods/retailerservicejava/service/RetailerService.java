@@ -27,7 +27,6 @@ public class RetailerService {
         return retailerRepository.save(retailer);
     }
 
-
     public List<Retailer> getAllRetailers() {
         return retailerRepository.findAll();
     }
@@ -36,8 +35,8 @@ public class RetailerService {
         return retailerRepository.findByRetailerId(retailerId);
     }
 
-    public Boolean deleteRetailerById(String retailerId) {
-        return retailerRepository.deleteByRetailerId(retailerId);
+    public void deleteRetailerById(String retailerId) {
+         retailerRepository.deleteById(retailerId);
     }
 
     public ResponseEntity<Retailer> updateRetailerDetails(String retailerId, Retailer retailer) {
@@ -64,7 +63,6 @@ public class RetailerService {
                 return null;
             }
         }
-
         return retailerRepository.save(retailer);
     }
     // LOG IN

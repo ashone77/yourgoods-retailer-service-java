@@ -23,7 +23,7 @@ public class RetailerController {
 
     @PostMapping("/")
     public Retailer registerRetailer(@RequestBody Retailer retailer){
-        return retailerService.registerRetailer(retailer);
+        return retailerService.saveRetailer(retailer);
     }
 
     @GetMapping("/")
@@ -37,8 +37,8 @@ public class RetailerController {
     }
 
     @DeleteMapping("/{id}")
-    public Boolean deleteRetailerById(@PathVariable("id") String retailerId){
-        return retailerService.deleteRetailerById(retailerId);
+    public void deleteRetailerById(@PathVariable("id") String retailerId){
+         retailerService.deleteRetailerById(retailerId);
     }
 
     @PutMapping("/{id}")
