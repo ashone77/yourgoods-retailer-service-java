@@ -1,5 +1,6 @@
 package com.yourgoods.retailerservicejava.service;
 
+import com.yourgoods.retailerservicejava.VO.RetailerLogin;
 import com.yourgoods.retailerservicejava.models.ProductRequest;
 import com.yourgoods.retailerservicejava.models.Retailer;
 import com.yourgoods.retailerservicejava.repository.ProductRequestRepository;
@@ -31,16 +32,21 @@ public class RetailerService {
         return retailerRepository.findAll();
     }
 
-    public Retailer getRetailerById(String retailerId) {
-        return retailerRepository.findByRetailerId(retailerId);
+    public Optional<Retailer> getRetailerById(String retailerId) {
+        return retailerRepository.findById(retailerId);
     }
 
-    public void deleteRetailerById(String retailerId) {
-         retailerRepository.deleteById(retailerId);
+    public Boolean deleteRetailerById(String retailerId) {
+        Optional<Retailer> retailerOptional = retailerRepository.findById(retailerId);
+        if(retailerOptional.isPresent()){
+            retailerRepository.deleteById(retailerId);
+            return true;
+        }
+        return false;
     }
 
     public ResponseEntity<Retailer> updateRetailerDetails(String retailerId, Retailer retailer) {
-        Optional<Retailer> retailerOptional = Optional.ofNullable(retailerRepository.findByRetailerId(retailerId));
+        Optional<Retailer> retailerOptional = retailerRepository.findById(retailerId);
         if(retailerOptional.isPresent()){
             Retailer _retailer = retailerOptional.get();
             _retailer.setRetailerName(retailer.getRetailerName());
@@ -66,21 +72,34 @@ public class RetailerService {
         return retailerRepository.save(retailer);
     }
     // LOG IN
-    public Retailer validateRetailer(Retailer retailer) {
-        List<Retailer> retailers = getAllRetailers();
-        for(Retailer re : retailers){
-            if(re.getRetailerEmail().equals(retailer.getRetailerEmail()) && re.getRetailerPassword().equals(retailer.getRetailerPassword())){
-                System.out.println("Login Successfully");
-                //System.out.println(re);
-                return re;
-            }
-        }
-        System.out.println("Please Register! No Email Found!! ");
-        return null;
-    }
+//    public RetailerLogin validateRetailer(RetailerLogin retailer) {
+//        Optional<Retailer> optionalRetailer = retailerRepository.find(retailer.getRetailerEmail());
+//
+//        List<Retailer> retailers = getAllRetailers();
+//        for(Retailer re : retailers){
+//            if(re.getRetailerEmail().equals(retailer.getRetailerEmail()) && re.getRetailerPassword().equals(retailer.getRetailerPassword())){
+//                System.out.println("Login Successfully");
+//                //System.out.println(re);
+//                return re;
+//            }
+//        }
+//        System.out.println("Please Register! No Email Found!! ");
+//        return null;
+//    }
 
 
     public ProductRequest newProductRequest(ProductRequest productRequest) {
         return productRequestRepository.save(productRequest);
+    }
+
+    public Boolean validateRetailer(RetailerLogin retailer) {
+        Optional<Retailer> optionalRetailer = retailerRepository.findByRetailerEmail(retailer.getRetailerEmail());
+        if(optionalRetailer.isPresent()){
+            Retailer _retailer =optionalRetailer.get();
+            if(_retailer.getRetailerPassword().equals(retailer.getRetailerPassword())){
+                return true;
+            }
+        }
+        return false;
     }
 }

@@ -1,6 +1,7 @@
 package com.yourgoods.retailerservicejava.models;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
@@ -12,6 +13,7 @@ import javax.validation.constraints.NotBlank;
 
 @Data
 @Document("retailer")
+@JsonIgnoreProperties
 public class Retailer {
 
     @Id
@@ -30,8 +32,8 @@ public class Retailer {
     private String retailerAddress;
     @NotBlank
     private String retailerPincode;
-    public void setRetailerPassword(String retailerPassword) {
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        this.retailerPassword = encoder.encode(retailerPassword);
-    }
+//    public void setRetailerPassword(String retailerPassword) {
+//        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+//        this.retailerPassword = encoder.encode(retailerPassword);
+//    }
 }

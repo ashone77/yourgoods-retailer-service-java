@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -32,13 +33,13 @@ public class RetailerController {
     }
 
     @GetMapping("/{id}")
-    public Retailer getRetailerById(@PathVariable("id") String retailerId){
+    public Optional<Retailer> getRetailerById(@PathVariable("id") String retailerId){
         return retailerService.getRetailerById(retailerId);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteRetailerById(@PathVariable("id") String retailerId){
-         retailerService.deleteRetailerById(retailerId);
+    public Boolean deleteRetailerById(@PathVariable("id") String retailerId){
+         return deleteRetailerById(retailerId);
     }
 
     @PutMapping("/{id}")
@@ -47,7 +48,7 @@ public class RetailerController {
     }
 
     @PostMapping("/validateRetailer")
-    public Retailer validateRetailer(@RequestBody Retailer retailer){
+    public Boolean validateRetailer(@RequestBody RetailerLogin retailer){
         return retailerService.validateRetailer(retailer);
     }
 
@@ -55,7 +56,5 @@ public class RetailerController {
     public ProductRequest newProductRequest(@RequestBody ProductRequest productRequest){
         return retailerService.newProductRequest(productRequest);
     }
-
-
 
 }
