@@ -17,8 +17,6 @@ import javax.validation.constraints.NotBlank;
 public class Retailer {
 
     @Id
-    private String id;
-    @Indexed(unique = true)
     private String retailerId;
     @NotBlank
     private String retailerName;

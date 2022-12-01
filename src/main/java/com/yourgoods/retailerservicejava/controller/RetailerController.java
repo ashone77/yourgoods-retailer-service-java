@@ -39,7 +39,7 @@ public class RetailerController {
 
     @DeleteMapping("/{id}")
     public Boolean deleteRetailerById(@PathVariable("id") String retailerId){
-         return deleteRetailerById(retailerId);
+         return retailerService.deleteRetailerById(retailerId);
     }
 
     @PutMapping("/{id}")
